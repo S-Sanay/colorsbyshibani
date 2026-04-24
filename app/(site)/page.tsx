@@ -13,7 +13,6 @@ export default async function HomePage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative flex h-screen min-h-[600px] flex-col items-center justify-center text-center px-6">
-        {/* Subtle background texture */}
         <div className="absolute inset-0 bg-parchment opacity-40" />
 
         <div className="relative z-10 flex flex-col items-center gap-6">
@@ -37,7 +36,6 @@ export default async function HomePage() {
           </FadeIn>
         </div>
 
-        {/* Scroll indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted">
           <span className="text-xs tracking-widest uppercase font-sans">Scroll</span>
           <span className="block h-10 w-px bg-border" />
@@ -47,7 +45,6 @@ export default async function HomePage() {
       {/* ── Bio ──────────────────────────────────────────────── */}
       <Section id="bio" className="bg-white">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Artist portrait placeholder */}
           <FadeIn>
             <div className="relative aspect-[3/4] bg-parchment overflow-hidden">
               <Image
@@ -60,7 +57,6 @@ export default async function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Bio text */}
           <FadeIn delay={150}>
             <div className="flex flex-col gap-6">
               <span className="text-xs tracking-widest uppercase text-accent font-sans">
@@ -113,7 +109,6 @@ export default async function HomePage() {
           </div>
         </FadeIn>
 
-        {/* Category navigation pills */}
         <FadeIn delay={150}>
           <div className="flex flex-wrap justify-center gap-3 mt-12">
             {[

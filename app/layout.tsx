@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +28,8 @@ export const metadata: Metadata = {
   },
 };
 
+// Root layout: fonts + global CSS only.
+// Navbar/Footer live in app/(site)/layout.tsx so the /admin route gets its own shell.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
@@ -38,9 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${inter.variable} ${playfair.variable} h-full`}
     >
       <body className="flex min-h-full flex-col antialiased bg-cream text-charcoal">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
