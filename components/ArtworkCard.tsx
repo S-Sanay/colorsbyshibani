@@ -1,22 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Artwork } from "@/data/artworks";
+import type { DbArtwork } from "@/lib/api/artworks";
 
 interface ArtworkCardProps {
-  artwork: Artwork;
+  artwork: DbArtwork;
 }
 
 export function ArtworkCard({ artwork }: ArtworkCardProps) {
+  const price = `$${Number(artwork.price).toLocaleString()}`;
+
   return (
     <Link
       href={`/artwork/${artwork.id}`}
       className="group block"
       aria-label={`View ${artwork.title}`}
     >
-      {/* Image container */}
+      {/* Image — image_url comes directly from Supabase Storage */}
       <div className="relative overflow-hidden bg-parchment aspect-[4/3]">
         <Image
-          src={artwork.thumbnailUrl}
+          src={artwork.image_url}
           alt={artwork.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -33,7 +35,7 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
           </div>
         )}
 
-        {/* Hover overlay with subtle tint */}
+        {/* Hover tint */}
         {artwork.available && (
           <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/10 transition-colors duration-300" />
         )}
@@ -44,11 +46,8 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
         <h3 className="font-serif text-base text-charcoal group-hover:text-accent transition-colors duration-200">
           {artwork.title}
         </h3>
-        <p className="mt-1 text-sm text-warm-gray">
-          {artwork.medium} · {artwork.year}
-        </p>
         <p className="mt-1 text-sm font-medium text-charcoal">
-          {artwork.available ? artwork.displayPrice : "Sold"}
+          {artwork.available ? price : "Sold"}
         </p>
       </div>
     </Link>

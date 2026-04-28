@@ -1,28 +1,20 @@
-// Data access layer — abstracts where artworks come from.
-// Currently uses local mock data. When Supabase is connected:
-//   1. Install `@supabase/supabase-js`
-//   2. Create a client in `lib/supabase.ts`
-//   3. Replace the mock imports below with Supabase queries
+// Public-facing data layer — re-exports Supabase-backed functions.
+// Gallery pages import from here so they never talk to Supabase directly.
+// Only available=true artworks are returned; the admin uses lib/api/artworks.ts
+// directly to see everything including drafts and sold works.
 
-import { artworks, Artwork, Category } from "@/data/artworks";
+export type { DbArtwork as Artwork, Category } from "@/lib/api/artworks";
 
-/** Return all artworks, optionally filtered by category. */
-export async function getArtworks(category?: Category): Promise<Artwork[]> {
-  // TODO (Supabase): const { data } = await supabase.from('artworks').select('*').eq('category', category)
-  if (category) {
-    return artworks.filter((a) => a.category === category);
-  }
-  return artworks;
+import {
+  getArtworks as _getArtworks,
+  getFeaturedArtworks,
+  getArtworkById,
+  type DbArtwork,
+} from "@/lib/api/artworks";
+
+/** Gallery pages: available artworks only, newest first. */
+export async function getArtworks(category?: string): Promise<DbArtwork[]> {
+  return _getArtworks(category, { availableOnly: true });
 }
 
-/** Return a single artwork by id, or null if not found. */
-export async function getArtworkById(id: string): Promise<Artwork | null> {
-  // TODO (Supabase): const { data } = await supabase.from('artworks').select('*').eq('id', id).single()
-  return artworks.find((a) => a.id === id) ?? null;
-}
-
-/** Return the N most recent artworks across all categories. */
-export async function getFeaturedArtworks(limit = 6): Promise<Artwork[]> {
-  // TODO (Supabase): add .order('created_at', { ascending: false }).limit(limit)
-  return artworks.slice(0, limit);
-}
+export { getFeaturedArtworks, getArtworkById };

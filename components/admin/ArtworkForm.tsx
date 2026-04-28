@@ -73,8 +73,8 @@ export function ArtworkForm({ artwork, onSave, onCancel, showToast }: ArtworkFor
       showToast(artwork ? "Artwork updated" : "Artwork created", "success");
       onSave(saved);
     } catch (err) {
-      console.error(err);
-      showToast("Something went wrong — check the console", "error");
+      const msg = err instanceof Error ? err.message : String(err);
+      showToast(msg || "Something went wrong", "error");
     } finally {
       setSaving(false);
       setUploading(false);

@@ -1,12 +1,11 @@
-import { Artwork } from "@/data/artworks";
+import type { DbArtwork } from "@/lib/api/artworks";
 import { ArtworkCard } from "@/components/ArtworkCard";
 import { FadeIn } from "@/components/FadeIn";
 
 interface GalleryGridProps {
-  artworks: Artwork[];
+  artworks: DbArtwork[];
 }
 
-/** Responsive masonry-style grid of artwork cards. */
 export function GalleryGrid({ artworks }: GalleryGridProps) {
   if (artworks.length === 0) {
     return (
