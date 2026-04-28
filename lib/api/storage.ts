@@ -28,6 +28,27 @@ export async function uploadImage(file: File): Promise<string> {
 }
 
 /**
+ * Upload a site asset (bio portrait, etc.) to the artworks bucket under a
+ * site/ prefix and return its public URL. Stored in site_content.bio_image_url.
+ */
+export async function uploadSiteImage(file: File): Promise<string> {
+  const ext = file.name.split(".").pop() ?? "jpg";
+  const path = `site/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+  const { data, error } = await supabase.storage
+    .from(BUCKET)
+    .upload(path, file, { contentType: file.type, upsert: false });
+
+  if (error) throw error;
+
+  const {
+    data: { publicUrl },
+  } = supabase.storage.from(BUCKET).getPublicUrl(data.path);
+
+  return publicUrl;
+}
+
+/**
  * Delete an image from storage given its full public URL.
  * Optional — call this from deleteArtwork() if you want to clean up orphaned files.
  */

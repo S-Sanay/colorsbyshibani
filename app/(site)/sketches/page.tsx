@@ -3,6 +3,7 @@ import { Section } from "@/components/Section";
 import { GalleryGrid } from "@/components/GalleryGrid";
 import { FadeIn } from "@/components/FadeIn";
 import { getArtworks } from "@/lib/artworks";
+import { getSiteContent } from "@/lib/api/site-content";
 
 export const metadata: Metadata = {
   title: "Sketches",
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default async function SketchesPage() {
-  const sketches = await getArtworks("sketch");
+  const [sketches, description] = await Promise.all([
+    getArtworks("sketch"),
+    getSiteContent("sketches_description"),
+  ]);
 
   return (
     <Section className="pt-32">
@@ -20,10 +24,7 @@ export default async function SketchesPage() {
             Collection
           </span>
           <h1 className="font-serif text-4xl lg:text-5xl text-charcoal">Sketches</h1>
-          <p className="mt-4 text-warm-gray max-w-lg leading-relaxed">
-            Loose ink and pencil sketches — capturing gesture, light, and moment.
-            Works on paper, often done in a single sitting.
-          </p>
+          <p className="mt-4 text-warm-gray max-w-lg leading-relaxed">{description}</p>
         </div>
       </FadeIn>
 

@@ -5,9 +5,19 @@ import { GalleryGrid } from "@/components/GalleryGrid";
 import { Button } from "@/components/Button";
 import { FadeIn } from "@/components/FadeIn";
 import { getFeaturedArtworks } from "@/lib/artworks";
+import { getSiteContents } from "@/lib/api/site-content";
 
 export default async function HomePage() {
-  const featured = await getFeaturedArtworks(6);
+  const [featured, c] = await Promise.all([
+    getFeaturedArtworks(6),
+    getSiteContents([
+      "hero_subtitle",
+      "bio_heading", "bio_paragraph_1", "bio_paragraph_2", "bio_image_url",
+      "gallery_heading", "gallery_paragraph_1", "gallery_paragraph_2",
+      "inquiry_heading", "inquiry_paragraph",
+      "contact_email", "contact_instagram",
+    ]),
+  ]);
 
   return (
     <>
@@ -24,7 +34,7 @@ export default async function HomePage() {
 
           <FadeIn delay={150}>
             <p className="text-sm tracking-[0.3em] uppercase text-warm-gray font-sans">
-              Original artwork · Available to collect
+              {c["hero_subtitle"]}
             </p>
           </FadeIn>
 
@@ -48,7 +58,7 @@ export default async function HomePage() {
           <FadeIn>
             <div className="relative aspect-[3/4] bg-parchment overflow-hidden">
               <Image
-                src="https://picsum.photos/seed/shibani-bio/600/800"
+                src={c["bio_image_url"]}
                 alt="Artist portrait"
                 fill
                 className="object-cover"
@@ -63,19 +73,13 @@ export default async function HomePage() {
                 About the Artist
               </span>
               <h2 className="font-serif text-4xl lg:text-5xl text-charcoal leading-snug">
-                Made with intention, offered with care.
+                {c["bio_heading"]}
               </h2>
               <p className="text-warm-gray leading-relaxed">
-                Shibani is a self-taught artist whose work explores the intersection of
-                color, emotion, and everyday moments. Each piece begins with observation—
-                a quality of light, a gesture, a feeling—and ends as something that can
-                live in a home and be looked at for years.
+                {c["bio_paragraph_1"]}
               </p>
               <p className="text-warm-gray leading-relaxed">
-                Working across oil painting, detailed drawings, and expressive sketches,
-                she finds different truths in each medium. Her studio practice is slow
-                and deliberate: she would rather finish one honest piece than ten
-                impressive ones.
+                {c["bio_paragraph_2"]}
               </p>
               <Button href="/paintings" variant="ghost" className="self-start">
                 View all works →
@@ -93,18 +97,13 @@ export default async function HomePage() {
               About the Gallery
             </span>
             <h2 className="font-serif text-3xl lg:text-4xl text-charcoal leading-snug">
-              A space for work that lasts.
+              {c["gallery_heading"]}
             </h2>
             <p className="text-warm-gray leading-relaxed">
-              Every work here is one-of-a-kind, signed by the artist, and shipped with
-              care. This gallery exists because art deserves to be lived with, not just
-              admired from a distance. Whether you are drawn to a painting for its color,
-              a drawing for its precision, or a sketch for its spontaneity—there is
-              something here for you.
+              {c["gallery_paragraph_1"]}
             </p>
             <p className="text-warm-gray leading-relaxed">
-              All pieces are available for purchase. For commissions, custom work, or
-              questions about a specific piece, please reach out directly.
+              {c["gallery_paragraph_2"]}
             </p>
           </div>
         </FadeIn>
@@ -166,22 +165,21 @@ export default async function HomePage() {
               Get in Touch
             </span>
             <h2 className="font-serif text-3xl lg:text-4xl text-charcoal">
-              Interested in a piece?
+              {c["inquiry_heading"]}
             </h2>
             <p className="text-warm-gray leading-relaxed">
-              For purchase inquiries, commissions, or just to say hello—reach out via
-              email or Instagram. Every message is read and responded to personally.
+              {c["inquiry_paragraph"]}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
               <a
-                href="mailto:art@colorsbyshibani.com"
+                href={`mailto:${c["contact_email"]}`}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3 border border-charcoal text-charcoal text-xs tracking-widest uppercase hover:bg-charcoal hover:text-cream transition-all duration-300"
               >
                 Email
               </a>
               <a
-                href="https://instagram.com/colorsbyshibani"
+                href={`https://instagram.com/${c["contact_instagram"]}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-charcoal text-cream text-xs tracking-widest uppercase hover:bg-accent transition-all duration-300"

@@ -7,13 +7,13 @@ import { DbArtwork, getArtworks } from "@/lib/api/artworks";
 import { LoginScreen } from "@/components/admin/LoginScreen";
 import { ArtworkTable } from "@/components/admin/ArtworkTable";
 import { ArtworkForm } from "@/components/admin/ArtworkForm";
-import { BioEditor } from "@/components/admin/BioEditor";
+import { SiteEditor } from "@/components/admin/SiteEditor";
 import { Toast, ToastData } from "@/components/admin/Toast";
 
 // Set NEXT_PUBLIC_ADMIN_EMAIL in .env.local — only this address gets in.
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
-type View = "artworks" | "add" | "edit" | "bio";
+type View = "artworks" | "add" | "edit" | "site";
 
 // ─── Spinner ────────────────────────────────────────────────────────────────
 function Spinner() {
@@ -168,14 +168,14 @@ export default function AdminPage() {
             <div className="my-3 border-t border-border" />
 
             <button
-              onClick={() => navigate("bio")}
+              onClick={() => navigate("site")}
               className={`text-left px-3 py-2 text-xs tracking-widest uppercase font-sans transition-colors ${
-                view === "bio"
+                view === "site"
                   ? "text-charcoal bg-cream"
                   : "text-warm-gray hover:text-charcoal"
               }`}
             >
-              Edit Bio
+              Site Content
             </button>
           </nav>
         </aside>
@@ -185,7 +185,7 @@ export default function AdminPage() {
 
           {/* Mobile nav pills */}
           <div className="flex gap-5 mb-8 sm:hidden">
-            {(["artworks", "add", "bio"] as const).map((v) => (
+            {(["artworks", "add", "site"] as const).map((v) => (
               <button
                 key={v}
                 onClick={() => navigate(v)}
@@ -195,7 +195,7 @@ export default function AdminPage() {
                     : "border-transparent text-muted hover:text-charcoal"
                 }`}
               >
-                {v === "add" ? "+ Add" : v}
+                {v === "add" ? "+ Add" : v === "site" ? "Site" : v}
               </button>
             ))}
           </div>
@@ -251,11 +251,11 @@ export default function AdminPage() {
             </>
           )}
 
-          {/* ── View: Edit bio ──────────────────────────────────── */}
-          {view === "bio" && (
+          {/* ── View: Site content ─────────────────────────────── */}
+          {view === "site" && (
             <>
-              <h1 className="font-serif text-2xl text-charcoal mb-8">Edit Bio</h1>
-              <BioEditor showToast={showToast} />
+              <h1 className="font-serif text-2xl text-charcoal mb-8">Site Content</h1>
+              <SiteEditor showToast={showToast} />
             </>
           )}
         </main>
