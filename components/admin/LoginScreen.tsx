@@ -33,22 +33,22 @@ export function LoginScreen() {
   return (
     <div className="min-h-screen bg-cream flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
-        <p className="text-xs tracking-widest uppercase text-muted font-sans mb-2">
+        <p className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted mb-3">
           colorsbyshibani
         </p>
-        <h1 className="font-serif text-3xl text-charcoal mb-10">Admin</h1>
+        <h1 className="font-serif font-normal text-[32px] leading-[1.2] text-charcoal mb-12">Admin</h1>
 
         {sent ? (
           <div>
-            <p className="font-serif text-xl text-charcoal mb-3">Check your email.</p>
-            <p className="text-sm text-warm-gray leading-relaxed">
+            <p className="font-serif font-normal text-[24px] leading-[1.2] text-charcoal mb-3">Check your email.</p>
+            <p className="font-sans text-[16px] leading-[1.6] text-warm-gray">
               A magic link has been sent to <strong>{email}</strong>. Click it to sign in.
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-8">
             <div>
-              <label className="text-xs tracking-widest uppercase text-muted font-sans block mb-2">
+              <label className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted block mb-2">
                 Email
               </label>
               <input
@@ -57,18 +57,18 @@ export function LoginScreen() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full bg-transparent border-b border-border py-3 text-charcoal placeholder:text-muted text-sm outline-none focus:border-charcoal transition-colors"
+                className="w-full bg-transparent border-b border-border py-3.5 text-charcoal placeholder:text-muted font-sans text-[16px] outline-none focus:border-charcoal transition-colors duration-300"
               />
             </div>
 
             {error && (
-              <p className="text-red-500 text-xs">{error}</p>
+              <p className="font-sans text-[13px] text-red-500">{error}</p>
             )}
 
             <button
               type="submit"
               disabled={loading}
-              className="bg-charcoal text-cream px-6 py-3 text-xs tracking-widest uppercase font-sans hover:bg-accent transition-colors disabled:opacity-50"
+              className="bg-charcoal text-white px-8 py-3.5 font-sans text-[12px] font-semibold tracking-[0.1em] uppercase transition-opacity duration-300 hover:opacity-70 disabled:opacity-40"
             >
               {loading ? "Sending…" : "Send Magic Link"}
             </button>

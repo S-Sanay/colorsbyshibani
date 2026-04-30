@@ -4,16 +4,16 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border mt-auto">
-      <div className="mx-auto max-w-6xl px-6 lg:px-10 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer className="border-t border-border mt-auto bg-white">
+      <div className="mx-auto max-w-[90rem] px-8 lg:px-16 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
         <Link
           href="/"
-          className="font-serif text-base text-charcoal hover:text-accent transition-colors duration-200"
+          className="font-serif text-base text-charcoal transition-opacity duration-300 hover:opacity-70"
         >
           colorsbyshibani
         </Link>
 
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-8">
           {[
             { href: "/paintings", label: "Paintings" },
             { href: "/drawings",  label: "Drawings"  },
@@ -23,14 +23,14 @@ export function Footer() {
             <Link
               key={href}
               href={href}
-              className="text-xs tracking-widest uppercase text-warm-gray hover:text-charcoal transition-colors duration-200"
+              className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted transition-opacity duration-300 hover:text-charcoal hover:opacity-100"
             >
               {label}
             </Link>
           ))}
         </nav>
 
-        <p className="text-xs text-muted">© {year} colorsbyshibani</p>
+        <p className="font-sans text-[12px] tracking-[0.05em] text-muted">© {year} colorsbyshibani</p>
       </div>
     </footer>
   );

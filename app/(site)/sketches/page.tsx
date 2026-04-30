@@ -17,14 +17,16 @@ export default async function SketchesPage() {
   ]);
 
   return (
-    <Section className="pt-32">
+    <Section className="pt-36">
       <FadeIn>
-        <div className="mb-14">
-          <span className="text-xs tracking-widest uppercase text-accent font-sans block mb-3">
+        <div className="mb-20 border-b border-border pb-10">
+          <span className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-accent block mb-4">
             Collection
           </span>
-          <h1 className="font-serif text-4xl lg:text-5xl text-charcoal">Sketches</h1>
-          <p className="mt-4 text-warm-gray max-w-lg leading-relaxed">{description}</p>
+          <h1 className="font-serif font-normal text-[48px] leading-[1.1] tracking-[-0.02em] text-charcoal">
+            Sketches
+          </h1>
+          <p className="mt-5 font-sans text-[16px] leading-[1.6] text-warm-gray max-w-lg">{description}</p>
         </div>
       </FadeIn>
 

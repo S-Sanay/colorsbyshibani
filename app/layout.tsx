@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Noto_Serif } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,9 +8,9 @@ const inter = Inter({
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const notoSerif = Noto_Serif({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-noto-serif",
   display: "swap",
 });
 
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${playfair.variable} h-full`}
+      className={`${inter.variable} ${notoSerif.variable} h-full`}
     >
       <body className="flex min-h-full flex-col antialiased bg-cream text-charcoal">
         {children}

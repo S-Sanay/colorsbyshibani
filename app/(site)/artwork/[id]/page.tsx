@@ -36,62 +36,65 @@ export default async function ArtworkDetailPage({ params }: Props) {
   const price = `$${Number(artwork.price).toLocaleString()}`;
 
   return (
-    <div className="pt-24 pb-20">
-      <div className="mx-auto max-w-6xl px-6 lg:px-10">
+    <div className="pt-28 pb-24">
+      <div className="mx-auto max-w-[90rem] px-8 lg:px-16">
 
         {/* Breadcrumb */}
-        <nav className="mb-10 flex items-center gap-2 text-xs tracking-widest uppercase text-muted font-sans">
-          <Link href="/" className="hover:text-charcoal transition-colors">Home</Link>
-          <span>/</span>
-          <Link href={categoryHref} className="hover:text-charcoal transition-colors">
+        <nav className="mb-12 flex items-center gap-2 font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted">
+          <Link href="/" className="transition-all duration-300 hover:text-charcoal">Home</Link>
+          <span className="text-border">—</span>
+          <Link href={categoryHref} className="transition-all duration-300 hover:text-charcoal">
             {categoryLabel}s
           </Link>
-          <span>/</span>
-          <span className="text-warm-gray">{artwork.title}</span>
+          <span className="text-border">—</span>
+          <span className="text-charcoal">{artwork.title}</span>
         </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-          {/* Image — sourced directly from Supabase Storage */}
+          {/* Image — gallery frame with 24px matting */}
           <FadeIn>
-            <div className="relative aspect-[4/3] bg-parchment overflow-hidden sticky top-24">
-              <Image
-                src={artwork.image_url}
-                alt={artwork.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
-              {!artwork.available && (
-                <div className="absolute top-4 left-4 bg-charcoal text-cream text-xs px-3 py-1 tracking-widest uppercase font-sans">
-                  Sold
-                </div>
-              )}
+            <div className="sticky top-24 bg-white border border-border p-6">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={artwork.image_url}
+                  alt={artwork.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+                {!artwork.available && (
+                  <div className="absolute top-0 left-0 bg-charcoal text-white font-sans text-[11px] font-semibold px-3 py-1 tracking-[0.1em] uppercase">
+                    Sold
+                  </div>
+                )}
+              </div>
             </div>
           </FadeIn>
 
           {/* Details */}
           <FadeIn delay={100}>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-8">
+
               <div>
-                <span className="text-xs tracking-widest uppercase text-accent font-sans">
+                <span className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-accent">
                   {categoryLabel}
                 </span>
-                <h1 className="mt-2 font-serif text-3xl lg:text-4xl text-charcoal leading-snug">
+                <h1 className="mt-3 font-serif font-normal text-[32px] leading-[1.2] text-charcoal">
                   {artwork.title}
                 </h1>
               </div>
 
-              {/* Category + availability */}
-              <dl className="grid grid-cols-2 gap-y-3 gap-x-6 border-y border-border py-5 text-sm">
+              {/* Metadata grid */}
+              <dl className="grid grid-cols-2 gap-y-5 gap-x-8 border-y border-border py-6">
                 <div>
-                  <dt className="text-xs tracking-widest uppercase text-muted mb-1">Category</dt>
-                  <dd className="text-charcoal capitalize">{artwork.category}</dd>
+                  <dt className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted mb-1.5">Category</dt>
+                  <dd className="font-sans text-[16px] text-charcoal capitalize">{artwork.category}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs tracking-widest uppercase text-muted mb-1">Availability</dt>
-                  <dd className={artwork.available ? "text-accent" : "text-muted"}>
+                  <dt className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted mb-1.5">Availability</dt>
+                  <dd className={`font-sans text-[16px] ${artwork.available ? "text-charcoal" : "text-muted"}`}>
                     {artwork.available ? "Available" : "Sold"}
                   </dd>
                 </div>
@@ -99,32 +102,33 @@ export default async function ArtworkDetailPage({ params }: Props) {
 
               {/* Price + buy */}
               <div className="flex items-center justify-between">
-                <span className="font-serif text-3xl text-charcoal">{price}</span>
+                <span className="font-sans text-[15px] font-medium tracking-[0.05em] text-charcoal">
+                  {price}
+                </span>
                 {artwork.available ? (
-                  // Stripe checkout will replace this — for now, direct to contact
                   <Button href="/contact" variant="primary">Inquire to Buy</Button>
                 ) : (
-                  <span className="text-sm text-muted tracking-widest uppercase">Sold</span>
+                  <span className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted">Sold</span>
                 )}
               </div>
 
               {/* Description */}
               {artwork.description && (
                 <div className="flex flex-col gap-3">
-                  <h2 className="text-xs tracking-widest uppercase text-warm-gray font-sans">
+                  <h2 className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted">
                     About this Work
                   </h2>
-                  <p className="text-charcoal leading-relaxed">{artwork.description}</p>
+                  <p className="font-sans text-[16px] leading-[1.6] text-charcoal">{artwork.description}</p>
                 </div>
               )}
 
-              {/* Artist's note */}
+              {/* Artist's note — recessed container */}
               {artwork.inspiration && (
-                <div className="flex flex-col gap-3 bg-parchment p-6">
-                  <h2 className="text-xs tracking-widest uppercase text-warm-gray font-sans">
+                <div className="flex flex-col gap-3 bg-cream border border-border p-6">
+                  <h2 className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted">
                     Artist&apos;s Note
                   </h2>
-                  <blockquote className="text-warm-gray leading-relaxed italic font-serif">
+                  <blockquote className="font-serif font-normal text-[18px] leading-[1.6] text-warm-gray italic">
                     &ldquo;{artwork.inspiration}&rdquo;
                   </blockquote>
                 </div>
@@ -132,7 +136,7 @@ export default async function ArtworkDetailPage({ params }: Props) {
 
               <Link
                 href={categoryHref}
-                className="text-xs tracking-widest uppercase text-warm-gray hover:text-charcoal transition-colors duration-200 underline-offset-4 hover:underline"
+                className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted transition-all duration-300 hover:text-charcoal self-start"
               >
                 ← Back to {categoryLabel}s
               </Link>

@@ -16,16 +16,17 @@ type ButtonAsLink = BaseProps &
 
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
+/* Sharp (0px radius) per Gallery System spec */
 const base =
-  "inline-flex items-center justify-center gap-2 px-7 py-3 text-sm tracking-widest uppercase font-sans font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent";
+  "inline-flex items-center justify-center gap-2 px-8 py-3.5 font-sans text-[12px] font-semibold tracking-[0.1em] uppercase transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal focus-visible:ring-offset-2";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-charcoal text-cream hover:bg-accent border border-charcoal hover:border-accent",
+    "bg-charcoal text-white hover:opacity-70",
   outline:
-    "border border-charcoal text-charcoal hover:bg-charcoal hover:text-cream",
+    "border border-charcoal text-charcoal hover:bg-charcoal hover:text-white",
   ghost:
-    "text-warm-gray hover:text-charcoal underline-offset-4 hover:underline",
+    "text-muted hover:text-charcoal underline-offset-4 hover:underline",
 };
 
 export function Button({ variant = "primary", className = "", ...props }: ButtonProps) {

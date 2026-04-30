@@ -107,13 +107,13 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen bg-cream flex items-center justify-center px-6">
         <div className="text-center">
-          <p className="font-serif text-2xl text-charcoal mb-2">Access denied.</p>
-          <p className="text-sm text-warm-gray mb-6">
+          <p className="font-serif font-normal text-[28px] leading-[1.2] text-charcoal mb-3">Access denied.</p>
+          <p className="font-sans text-[16px] leading-[1.6] text-warm-gray mb-8">
             This account is not authorised for admin access.
           </p>
           <button
             onClick={handleLogout}
-            className="text-xs tracking-widest uppercase text-warm-gray hover:text-charcoal transition-colors font-sans"
+            className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted transition-opacity duration-300 hover:text-charcoal"
           >
             Sign out
           </button>
@@ -128,13 +128,14 @@ export default function AdminPage() {
 
       {/* Header */}
       <header className="border-b border-border bg-white flex-shrink-0">
-        <div className="flex items-center justify-between px-6 py-4">
-          <span className="font-serif text-charcoal tracking-wide">
-            colorsbyshibani <span className="text-muted font-sans text-xs">/ admin</span>
+        <div className="flex items-center justify-between px-8 py-4">
+          <span className="font-serif font-normal text-charcoal">
+            colorsbyshibani{" "}
+            <span className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted">/ admin</span>
           </span>
           <button
             onClick={handleLogout}
-            className="text-xs tracking-widest uppercase text-muted hover:text-charcoal transition-colors font-sans"
+            className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted transition-opacity duration-300 hover:text-charcoal hover:opacity-100"
           >
             Logout
           </button>
@@ -155,10 +156,10 @@ export default function AdminPage() {
               <button
                 key={v}
                 onClick={() => navigate(v)}
-                className={`text-left px-3 py-2 text-xs tracking-widest uppercase font-sans transition-colors ${
+                className={`text-left px-3 py-2 font-sans text-[11px] font-semibold tracking-[0.1em] uppercase transition-opacity duration-300 ${
                   view === v
                     ? "text-charcoal bg-cream"
-                    : "text-warm-gray hover:text-charcoal"
+                    : "text-muted hover:text-charcoal"
                 }`}
               >
                 {label}
@@ -169,10 +170,10 @@ export default function AdminPage() {
 
             <button
               onClick={() => navigate("site")}
-              className={`text-left px-3 py-2 text-xs tracking-widest uppercase font-sans transition-colors ${
+              className={`text-left px-3 py-2 font-sans text-[11px] font-semibold tracking-[0.1em] uppercase transition-opacity duration-300 ${
                 view === "site"
                   ? "text-charcoal bg-cream"
-                  : "text-warm-gray hover:text-charcoal"
+                  : "text-muted hover:text-charcoal"
               }`}
             >
               Site Content
@@ -189,7 +190,7 @@ export default function AdminPage() {
               <button
                 key={v}
                 onClick={() => navigate(v)}
-                className={`text-xs tracking-widest uppercase font-sans pb-1 border-b transition-colors ${
+                className={`font-sans text-[11px] font-semibold tracking-[0.1em] uppercase pb-1 border-b transition-all duration-300 ${
                   view === v
                     ? "border-charcoal text-charcoal"
                     : "border-transparent text-muted hover:text-charcoal"
@@ -204,8 +205,8 @@ export default function AdminPage() {
           {view === "artworks" && (
             <>
               <div className="flex items-baseline justify-between mb-8">
-                <h1 className="font-serif text-2xl text-charcoal">All Artworks</h1>
-                <span className="text-xs text-muted font-sans">{artworks.length} works</span>
+                <h1 className="font-serif font-normal text-[28px] leading-[1.2] text-charcoal">All Artworks</h1>
+                <span className="font-sans text-[12px] tracking-[0.05em] text-muted">{artworks.length} works</span>
               </div>
 
               {artworksLoading ? (
@@ -229,7 +230,7 @@ export default function AdminPage() {
           {/* ── View: Add artwork ───────────────────────────────── */}
           {view === "add" && (
             <>
-              <h1 className="font-serif text-2xl text-charcoal mb-8">Add Artwork</h1>
+              <h1 className="font-serif font-normal text-[28px] leading-[1.2] text-charcoal mb-8">Add Artwork</h1>
               <ArtworkForm
                 onSave={handleSave}
                 onCancel={() => navigate("artworks")}
@@ -241,7 +242,7 @@ export default function AdminPage() {
           {/* ── View: Edit artwork ──────────────────────────────── */}
           {view === "edit" && editingArtwork && (
             <>
-              <h1 className="font-serif text-2xl text-charcoal mb-8">Edit Artwork</h1>
+              <h1 className="font-serif font-normal text-[28px] leading-[1.2] text-charcoal mb-8">Edit Artwork</h1>
               <ArtworkForm
                 artwork={editingArtwork}
                 onSave={handleSave}
@@ -254,7 +255,7 @@ export default function AdminPage() {
           {/* ── View: Site content ─────────────────────────────── */}
           {view === "site" && (
             <>
-              <h1 className="font-serif text-2xl text-charcoal mb-8">Site Content</h1>
+              <h1 className="font-serif font-normal text-[28px] leading-[1.2] text-charcoal mb-8">Site Content</h1>
               <SiteEditor showToast={showToast} />
             </>
           )}

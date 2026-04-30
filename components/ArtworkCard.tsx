@@ -15,38 +15,32 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
       className="group block"
       aria-label={`View ${artwork.title}`}
     >
-      {/* Image — image_url comes directly from Supabase Storage */}
-      <div className="relative overflow-hidden bg-parchment aspect-[4/3]">
-        <Image
-          src={artwork.image_url}
-          alt={artwork.title}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-          loading="lazy"
-        />
+      {/* Gallery frame — 24px matting + 1px hairline border */}
+      <div className="relative bg-white border border-border p-6">
+        <div className="relative aspect-[4/3] overflow-hidden">
+          <Image
+            src={artwork.image_url}
+            alt={artwork.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-opacity duration-300 ease-out group-hover:opacity-70"
+            loading="lazy"
+          />
 
-        {/* Sold overlay */}
-        {!artwork.available && (
-          <div className="absolute inset-0 bg-charcoal/40 flex items-center justify-center">
-            <span className="text-cream text-xs tracking-widest uppercase font-sans font-medium">
+          {!artwork.available && (
+            <div className="absolute top-0 left-0 bg-charcoal text-white text-[11px] px-3 py-1 tracking-[0.1em] uppercase font-sans font-semibold">
               Sold
-            </span>
-          </div>
-        )}
-
-        {/* Hover tint */}
-        {artwork.available && (
-          <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/10 transition-colors duration-300" />
-        )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Meta */}
       <div className="pt-4 pb-2">
-        <h3 className="font-serif text-base text-charcoal group-hover:text-accent transition-colors duration-200">
+        <h3 className="font-serif text-[20px] leading-[1.4] text-charcoal transition-opacity duration-300 group-hover:opacity-70">
           {artwork.title}
         </h3>
-        <p className="mt-1 text-sm font-medium text-charcoal">
+        <p className="mt-1.5 font-sans text-[15px] font-medium tracking-[0.05em] text-charcoal">
           {artwork.available ? price : "Sold"}
         </p>
       </div>
