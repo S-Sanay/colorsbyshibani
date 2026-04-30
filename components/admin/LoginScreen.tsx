@@ -17,8 +17,9 @@ export function LoginScreen() {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        // Supabase redirects here after the user clicks the magic link.
-        emailRedirectTo: `${window.location.origin}/admin`,
+        // PKCE flow: Supabase sends ?code= to this route, which exchanges
+        // it for a session and then redirects to /admin.
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
 

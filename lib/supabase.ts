@@ -12,7 +12,12 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
-// Single browser-side client instance shared across the whole app.
-// For server-side usage (Server Components, Route Handlers), swap to
-// @supabase/ssr → createServerClient() with cookie handling.
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// PKCE flow: stores a code_verifier in localStorage so magic links can only
+// be completed by the browser that requested them. This prevents iCloud Mail
+// Privacy Protection (and similar link-scanners) from consuming the one-time
+// token before the user clicks it.
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    flowType: "pkce",
+  },
+});
