@@ -1,8 +1,5 @@
 import type { NextConfig } from "next";
 
-const supabaseHostname = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "")
-  .replace(/^https?:\/\//, "");
-
 const nextConfig: NextConfig = {
   devIndicators: false,
   images: {
@@ -15,15 +12,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "placehold.co",
       },
-      ...(supabaseHostname
-        ? [
-            {
-              protocol: "https" as const,
-              hostname: supabaseHostname,
-              pathname: "/storage/v1/object/public/**",
-            },
-          ]
-        : []),
+      {
+        protocol: "https",
+        hostname: "bxmsiqztekezxrvyyaba.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
     ],
   },
 };
