@@ -5,6 +5,8 @@ import { FadeIn } from "@/components/FadeIn";
 import { getArtworks } from "@/lib/artworks";
 import { getSiteContent } from "@/lib/api/site-content";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Paintings",
   description: "Original oil and acrylic paintings by Shibani — available to collect.",

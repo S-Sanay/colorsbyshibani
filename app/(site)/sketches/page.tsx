@@ -5,6 +5,8 @@ import { FadeIn } from "@/components/FadeIn";
 import { getArtworks } from "@/lib/artworks";
 import { getSiteContent } from "@/lib/api/site-content";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Sketches",
   description: "Ink and pencil sketches by Shibani — loose, gestural, immediate.",

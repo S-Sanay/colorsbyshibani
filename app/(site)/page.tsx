@@ -7,6 +7,8 @@ import { FadeIn } from "@/components/FadeIn";
 import { getFeaturedArtworks } from "@/lib/artworks";
 import { getSiteContents } from "@/lib/api/site-content";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [featured, c] = await Promise.all([
     getFeaturedArtworks(6),
